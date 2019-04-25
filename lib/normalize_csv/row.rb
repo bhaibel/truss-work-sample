@@ -6,7 +6,7 @@ module NormalizeCSV
       result = new
       result.timestamp_as_pst = pst_datetime_from_unmarked_string(hash['Timestamp'])
       result.address = hash['Address']
-      result.zip = hash['ZIP'].to_s
+      result.zip = hash['ZIP'].to_s.rjust(5, "0")
       result.full_name = hash["FullName"]
       result.foo_duration = duration_to_seconds(hash['FooDuration'])
       result.bar_duration = duration_to_seconds(hash['BarDuration'])
