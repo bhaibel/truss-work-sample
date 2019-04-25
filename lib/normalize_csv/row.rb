@@ -2,6 +2,8 @@ require 'bigdecimal'
 
 module NormalizeCSV
   class Row
+    class UnparseableRowError < StandardError; end
+
     def self.from_csv_row_hash(hash)
       result = new
       result.timestamp_as_pst = pst_datetime_from_unmarked_string(hash['Timestamp'])
@@ -12,15 +14,23 @@ module NormalizeCSV
       result.bar_duration = duration_to_seconds(hash['BarDuration'])
       result.notes = hash['Notes']
       result
+    rescue UnparseableRowError
+      $stderr.puts "unparseable row:"
+      $stderr.puts hash.to_s
+      nil
     end
 
     def self.pst_datetime_from_unmarked_string(string)
       DateTime.strptime("#{string} -8:00", "%m/%d/%y %l:%M:%S %p %z")
+    rescue ArgumentError => e
+      raise UnparseableRowError
     end
 
     def self.duration_to_seconds(duration)
       hours, minutes, seconds = duration.split(":").map { |segment| BigDecimal.new(segment) }
       (hours * 60 * 60) + (minutes * 60) + seconds
+    rescue ArgumentError => e
+      raise UnparseableRowError
     end
 
     attr_accessor(

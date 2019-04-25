@@ -4,7 +4,7 @@ module NormalizeCSV
   class DataSet
     def self.from_csv_string(csv_string)
       csv_rows = CSV.new(csv_string, headers: :first_row)
-      rows = csv_rows.map { |row_hash| Row.from_csv_row_hash(row_hash) }
+      rows = csv_rows.map { |row_hash| Row.from_csv_row_hash(row_hash) }.compact
       new(rows)
     end
 
