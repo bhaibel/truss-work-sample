@@ -33,9 +33,6 @@ module NormalizeCSV
       :notes
     )
 
-    # format for later
-    # %Y-%m-%dT%H:%M:%S%z
-
     def timestamp_as_pst
       timestamp_as_est.new_offset("-8:00").iso8601
     end
