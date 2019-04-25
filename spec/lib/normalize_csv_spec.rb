@@ -23,7 +23,7 @@ RSpec.describe NormalizeCSV do
 
       expect(result).to eq <<~EOT
         Timestamp,Address,ZIP,FullName,FooDuration,BarDuration,TotalDuration,Notes
-        2012-10-05T19:31:11-08:00,"Test Pattern Town, Test Pattern, TP",121,HI �,5012.123,5553.123,10565.246,1:11:11.123
+        2012-10-06T01:31:11-05:00,"Test Pattern Town, Test Pattern, TP",121,HI �,5012.123,5553.123,10565.246,1:11:11.123
       EOT
     end
   end

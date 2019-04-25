@@ -4,7 +4,7 @@ module NormalizeCSV
   class Row
     def self.from_csv_row_hash(hash)
       result = new
-      result.timestamp_as_est = est_datetime_from_unmarked_string(hash['Timestamp'])
+      result.timestamp_as_pst = pst_datetime_from_unmarked_string(hash['Timestamp'])
       result.address = hash['Address']
       result.zip = hash['ZIP'].to_s
       result.full_name = hash["FullName"]
@@ -14,8 +14,8 @@ module NormalizeCSV
       result
     end
 
-    def self.est_datetime_from_unmarked_string(string)
-      DateTime.strptime("#{string} -5:00", "%m/%d/%y %l:%M:%S %p %z")
+    def self.pst_datetime_from_unmarked_string(string)
+      DateTime.strptime("#{string} -8:00", "%m/%d/%y %l:%M:%S %p %z")
     end
 
     def self.duration_to_seconds(duration)
@@ -24,7 +24,7 @@ module NormalizeCSV
     end
 
     attr_accessor(
-      :timestamp_as_est,
+      :timestamp_as_pst,
       :address,
       :zip,
       :full_name,
@@ -33,8 +33,8 @@ module NormalizeCSV
       :notes
     )
 
-    def timestamp_as_pst
-      timestamp_as_est.new_offset("-8:00").iso8601
+    def timestamp_as_est
+      timestamp_as_pst.new_offset("-5:00").iso8601
     end
 
     def total_duration
@@ -43,7 +43,7 @@ module NormalizeCSV
 
     def to_csv_row
       csv_row = CSV::Row.new([], [])
-      csv_row['Timestamp'] = timestamp_as_pst
+      csv_row['Timestamp'] = timestamp_as_est
       csv_row['Address'] = address
       csv_row['ZIP'] = zip
       csv_row['FullName'] = full_name.upcase
