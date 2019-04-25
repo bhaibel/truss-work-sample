@@ -34,3 +34,7 @@ To run the test suite, use:
 ```
 bin/rake
 ```
+
+## Notes on My Solution
+
+The specific sub-flavor of ISO-8601 timestamp I used is "2007-11-19T08:37:48-0600".

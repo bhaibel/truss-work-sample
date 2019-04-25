@@ -4,4 +4,9 @@
 root = File.join(File.dirname(__FILE__), '..')
 $LOAD_PATH.unshift(File.join(root, 'lib'))
 
+require 'byebug'
 require 'normalize_csv'
+
+input = ARGF.read
+output = NormalizeCSV.normalize(input)
+puts output
