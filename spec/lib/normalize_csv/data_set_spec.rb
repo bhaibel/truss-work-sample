@@ -23,10 +23,6 @@ module NormalizeCSV
       end
     end
 
-    describe "Timestamp field" do
-      it "converts strings into ISO-8601"
-    end
-
     it "can be converted to a CSV string" do
       input_csv_string = <<~EOT
         Timestamp,Address,ZIP,FullName,FooDuration,BarDuration,TotalDuration,Notes

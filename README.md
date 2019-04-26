@@ -38,3 +38,5 @@ bin/rake
 ## Notes on My Solution
 
 The specific sub-flavor of ISO-8601 timestamp I used is "2007-11-19T08:37:48-0600".
+
+I'm not in love with my tests -- they're pretty focused on the exact CSV inputs and outputs, and are therefore pretty brittle. They also don't cover nearly as wide a range of cases as I'd ideally cover. I've tried to cover for that by adding additional fixture data (to `fixtures/sample-with-broken-fields.csv`) for manual testing purposes.
